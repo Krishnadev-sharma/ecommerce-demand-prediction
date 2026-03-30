@@ -1,0 +1,7 @@
+model,cv_rmse
+LinearRegression,21.1759
+Ridge,21.1731
+RandomForest,21.3095
+GradientBoosting,20.9866
+XGBoost,21.1341
+LightGBM,21.256
