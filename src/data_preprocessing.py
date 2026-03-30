@@ -34,16 +34,16 @@ def generate_synthetic_dataset(n_records: int = 15_000, seed: int = 42) -> pd.Da
 
     rows = []
     for _ in range(n_records):
-        date      = rng.choice(dates)
+        date      = pd.Timestamp(rng.choice(dates))
         product   = rng.choice(product_ids)
         store     = rng.choice(store_ids)
         category  = rng.choice(cat_list, p=cat_probs)
         price     = round(rng.uniform(5.0, 800.0), 2)
         promotion = int(rng.random() < 0.25)
-        holiday   = int(pd.Timestamp(date).month in [11, 12] and pd.Timestamp(date).day >= 20)
+        holiday   = int(date.month in [11, 12] and date.day >= 20)
 
         # Seasonality boost
-        date_ts = pd.Timestamp(date); season_boost = 20 if date_ts.month in [11, 12] else (10 if date_ts.month in [6, 7] else 0)
+        season_boost = 20 if date.month in [11, 12] else (10 if date.month in [6, 7] else 0)
 
         # Demand model
         base        = rng.integers(10, 180)
@@ -54,8 +54,7 @@ def generate_synthetic_dataset(n_records: int = 15_000, seed: int = 42) -> pd.Da
         demand      = max(1, base + promo_boost + hol_boost + price_eff + season_boost + noise)
         past_sales  = max(0, demand + rng.integers(-40, 40))
 
-        date_ts2=pd.Timestamp(date)
-        rows.append([str(date_ts2.date()), product, store, category,
+        rows.append([str(date.date()), product, store, category,
                      price, promotion, holiday, past_sales, demand])
 
     df = pd.DataFrame(rows, columns=[
