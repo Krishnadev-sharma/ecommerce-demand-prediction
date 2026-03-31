@@ -9,3 +9,4 @@ joblib
 streamlit==1.31.0 
 plotly 
 altair==4.2.2 
+Pillow==10.2.0 
