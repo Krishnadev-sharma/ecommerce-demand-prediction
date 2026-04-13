@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   train:
     runs-on: ubuntu-latest
@@ -23,6 +26,7 @@ jobs:
 
       - name: Generate data & train models
         run: |
+          set -e
           python src/data_preprocessing.py
           python src/feature_engineering.py
           python src/train_model.py
