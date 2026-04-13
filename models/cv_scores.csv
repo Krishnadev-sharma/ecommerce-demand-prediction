@@ -3,5 +3,5 @@ LinearRegression,20.9884
 Ridge,20.9883
 RandomForest,20.7061
 GradientBoosting,20.6295
-XGBoost,20.669
+XGBoost,20.6416
 LightGBM,20.681
